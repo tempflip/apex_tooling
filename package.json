@@ -1,0 +1,22 @@
+{
+  "name": "tooling",
+  "version": "1.0.1",
+  "description": "desc",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "request": "^2.69.0",
+    "q" : "^1.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-typescript" : "^2.10.0",
+    "gulp-nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "0.12.7"
+  },
+  "license": "MIT"
+}
