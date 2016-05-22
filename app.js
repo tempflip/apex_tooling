@@ -1,27 +1,31 @@
-var auth = require('./classes/auth.js');
+var PORT = 8000;
+var express = require('express');
+var http = require('http');
+var path = require('path');
+var favicon = require('serve-favicon');
+//var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-/*var a = new auth.auth('peter@aag.prod.blackthorn', 'aagprod+1984', true)
-var resolveToken = function() {
-	console.log(a);
-}
-a.init().then(resolveToken);
-*/
+var app = express();
 
-var access_token = '00Dq00000000RF1!ARcAQH_ZNpHGzL_ztoPaV5G3SHChvrHAj8_ALkuDSXRcCyp7gHyBsNLScsUapAqwrf.0gmQjAvgVhuPLnmt4gFqGyPJMTHfu';
-var instance_url = 'https://aag--blackthorn.cs21.my.salesforce.com';
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
+//router
+require('./controllers/auth.js')(app);
 
-var tooling = require('./classes/tooling.js');
-var t = new tooling.Tooling(access_token, instance_url);
-//t.sobject('ApexTrigger', '01qq0000000D7QcAAK').then(function(d) {
-//t.query('ApexTrigger').then(function(d) {
-//t.apexManifest().then(function(t) {
-//	console.log(d);
-//})
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  res.status(404).send('404 :(((');
+});
 
 
-var o = new tooling.OrgElements(access_token, instance_url);
-o.build()
-	.then(function() {
-		console.log('im done');
-	})
+app.set('port', process.env.PORT || PORT);
+var server = http.createServer(app);
+server.listen(PORT, function() {
+	console.log('Listening on port ' + PORT);
+});

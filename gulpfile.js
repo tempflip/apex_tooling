@@ -20,7 +20,14 @@ gulp.task('dev', function() {
 	gulp.run('ts');
 	gulp.run('start');
 
-	gulp.watch('src/*.ts', function (event) {
+	gulp.watch('*', function (event) {
+		console.log('## Restarting');
+		gulp.run('start');
+	});
+
+	gulp.watch('./src/*.ts', function (event) {
+		console.log('## Recompiling and Restarting');
 		gulp.run('ts');
 	});
+
 });
